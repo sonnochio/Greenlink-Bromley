@@ -14,11 +14,8 @@ client = OpenAI(api_key=openai_api_key)
 state=st.session_state
 picture = st.camera_input("Take a picture")
 
-if picture:
-    st.write("Image is captured.")
-    st.image(picture)
-# else:
-#     st.write("No image captured.")
+
+
 
 st.subheader('Press START to speak, press END when finish ')
 st.write('You can speak about a PROBLEM such as flytipping, or an IDEA such as a place for installing solar pannels.')
