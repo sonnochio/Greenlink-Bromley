@@ -17,7 +17,7 @@ picture = st.camera_input("Take a picture")
 
 
 
-st.subheader('Press START to speak, press END when finish ')
+st.subheader('Press START to speak, press END when finish. Wait for a couple of seconds. ')
 st.write('You can speak about a PROBLEM such as flytipping, or an IDEA such as a place for installing solar pannels.')
 text=WhisperSTT(openai_api_key=openai_api_key,language='en', start_prompt='🔴 START', stop_prompt='✋ END') # If you don't pass an API key, the function will attempt to load a .env file in the current directory and retrieve it as an environment variable : 'OPENAI_API_KEY'.
 if text:
