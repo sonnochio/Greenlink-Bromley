@@ -17,10 +17,11 @@ picture = st.camera_input("Take a picture")
 
 
 
-st.subheader('Press START to speak, press END when finish. Wait for a couple of seconds. ')
+st.subheader('Press START to speak, press END when finish. Wait for your report to generate. ')
 st.write('You can speak about a PROBLEM such as flytipping, or an IDEA such as a place for installing solar pannels.')
 text=WhisperSTT(openai_api_key=openai_api_key,language='en', start_prompt='🔴 START', stop_prompt='✋ END') # If you don't pass an API key, the function will attempt to load a .env file in the current directory and retrieve it as an environment variable : 'OPENAI_API_KEY'.
 if text:
+    st.write('Your transcription:')
     st.write(text)
     response = client.chat.completions.create(
 
@@ -61,4 +62,4 @@ Idea | Community Energy Projects | Installing community solar panels on the flat
         st.write('Problem or Idea: ', problem)
         st.write('Category: ', category)
         st.write('Content: ', content)
-        st.write('This has been reported to the council!')
+        st.write("✅Your report has been shared to the council and community groups")
