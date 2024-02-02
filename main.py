@@ -4,7 +4,6 @@ from whisper import WhisperSTT
 from openai import OpenAI
 import streamlit as st
 from streamlit_js_eval import get_geolocation
-from streamlit_gsheets import GSheetsConnection
 
 
 if st.checkbox("Sync location"):
