@@ -4,6 +4,7 @@ from whisper import WhisperSTT
 from openai import OpenAI
 import streamlit as st
 from streamlit_js_eval import get_geolocation
+from streamlit_gsheets import GSheetsConnection
 
 
 if st.checkbox("Sync location"):
@@ -89,7 +90,10 @@ Sighting | Endangered Species | Spotted one of the endangered species , ‘Crawf
 
     st.write("_________________________")
     st.subheader('Your report:')
-    st.map(data=data)
+    try:
+        st.map(data=data)
+    except:
+        st.write()
     c1, c2 = st.columns(2)
     with c1:
         if picture:
