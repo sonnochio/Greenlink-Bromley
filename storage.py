@@ -4,7 +4,8 @@ import streamlit as st
 
 
 openai_api_key=st.secrets["openai"]
-
+bucket_name = 'gl-bromley.appspot.com'
+bucket = storage.bucket(bucket_name)
 
 cred = credentials.Certificate(
     {
@@ -39,7 +40,6 @@ def initialize_firebase():
 
 
 def upload_image(image_file, destination_path):
-    bucket = storage.bucket()
     blob = bucket.blob(destination_path)
     blob.upload_from_file(image_file, content_type='image/jpeg')
     blob.make_public()  # Make the image publicly accessible
