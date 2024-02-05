@@ -4,9 +4,8 @@ from whisper import WhisperSTT
 from openai import OpenAI
 import streamlit as st
 from streamlit_js_eval import get_geolocation
-from storage import upload_image, create_data_point
+from storage import upload_image, create_data_point,initialize_firebase, create_feedback
 import datetime
-from storage import initialize_firebase
 
 initialize_firebase()
 
@@ -128,4 +127,5 @@ Sighting | Endangered Species | Spotted one of the endangered species , ‘Crawf
 st.write('If you have any feedback during test, please press the feedback button below and speak.')
 feedback=WhisperSTT(openai_api_key=openai_api_key,language='en', start_prompt='🔴 START FEEDBACK', stop_prompt='✋ END FEEDBACK')
 if feedback:
+    create_feedback(feedback=feedback)
     st.write("Feedback collected. Thank you so much")
