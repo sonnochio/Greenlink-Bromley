@@ -4,8 +4,11 @@ from whisper import WhisperSTT
 from openai import OpenAI
 import streamlit as st
 from streamlit_js_eval import get_geolocation
+from storage import upload_image, create_data_point
+import datetime
 
 
+st.write("Please sync location and allow the app to access your current location!")
 if st.checkbox("Sync location"):
     try:
         loc = get_geolocation()
@@ -24,12 +27,18 @@ st.title('GREENLINK BROMLEY')
 ##################
 
 openai_api_key=st.secrets["openai"]
+
+
+
+
+# openai_api_key="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"
 client = OpenAI(api_key=openai_api_key)
 
 
 
 state=st.session_state
 picture = st.camera_input("Take a picture")
+now = datetime.datetime.now()
 
 
 
@@ -97,13 +106,25 @@ Sighting | Endangered Species | Spotted one of the endangered species , ‘Crawf
     with c1:
         if picture:
             st.image(picture)
+            image_url=upload_image(picture, f'upload/{now}.jpg')
 
     with c2:
-        try:
-            problem, category, content = response.choices[0].message.content.split('|')
-            st.write('Problem or Idea: ', problem)
-            st.write('Category: ', category)
-            st.write('Content: ', content)
-            st.write("✅Your report has been documented")
-        except:
-            st.write("Your content didn't pass the check, Please try again")
+        # try:
+        #     problem, category, content = response.choices[0].message.content.split('|')
+        #     st.write('Type: ', problem)
+        #     st.write('Category: ', category)
+        #     st.write('Content: ', content)
+        #     create_data_point(image_url=image_url,geolocation=data, summarization=content, raw=text, type=problem, category=category)
+
+        #     st.write("✅Your report has been documented")
+        # except:
+        #     st.write("Your content didn't pass the check, Please try again")
+
+        problem, category, content = response.choices[0].message.content.split('|')
+        st.write(now)
+        st.write('Type: ', problem)
+        st.write('Category: ', category)
+        st.write('Content: ', content)
+        create_data_point(image_url=image_url, geolocation=data, summarization=content, raw=text, type=problem, category=category ,time=now)
+
+        st.write("✅Your report has been documented")
