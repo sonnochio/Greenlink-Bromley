@@ -4,4 +4,4 @@ openai
 python-dotenv
 Python-IO
 streamlit_js_eval
-st-gsheets-connection
+firebase-admin
