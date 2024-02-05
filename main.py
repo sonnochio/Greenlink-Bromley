@@ -31,7 +31,6 @@ openai_api_key=st.secrets["openai"]
 
 
 
-# openai_api_key="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"
 client = OpenAI(api_key=openai_api_key)
 
 
