@@ -63,11 +63,11 @@ def create_data_point(image_url, geolocation, summarization, raw, type, category
 
 def create_feedback(feedback):
     db = firestore.client()
-    data_point = {
+    feedback_data = {
         'feedback': feedback
     }
     # Add a new document in collection 'data_points'
-    db.collection('feedback').add(feedback)
+    db.collection('feedback').add(feedback_data)
     print("Feedback collected")
 
 
