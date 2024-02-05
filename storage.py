@@ -1,3 +1,4 @@
+import firebase_admin
 from firebase_admin import credentials, storage, firestore
 import streamlit as st
 
@@ -22,9 +23,18 @@ cred = credentials.Certificate(
 )
 
 
-# firebase_admin.initialize_app(cred, {
-#     'storageBucket': 'gl-bromley.appspot.com'
-# })
+# Function to initialize Firebase app
+def initialize_firebase():
+    # Check if the app has already been initialized
+    if not firebase_admin._apps:
+        # Initialize the Firebase app with the service account file
+        firebase_admin.initialize_app(cred)
+    else:
+        # Firebase app is already initialized
+        print("Firebase app already initialized.")
+
+# Call the function to ensure Firebase is initialized
+initialize_firebase()
 
 db = firestore.client() # For Firestore Database
 bucket = storage.bucket() # For Firebase Storage
