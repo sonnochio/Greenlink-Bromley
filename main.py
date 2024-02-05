@@ -47,7 +47,7 @@ s1, s2 = st.columns(2)
 with s1:
     st.subheader('Press START to speak, press END when finish. Wait for your report to generate. ')
 with s2:
-    st.write('You can speak about a PROBLEM such as flytipping, or an IDEA such as a place for installing solar pannels.')
+    st.write('You can speak about a PROBLEM such as flytipping, or an IDEA such as a place for installing solar pannels. Try to keep it short.')
     st.write('If you need help with sighting, switch on below')
     sighting_req = st.toggle('Sighting guide')
 if sighting_req:
@@ -110,22 +110,22 @@ Sighting | Endangered Species | Spotted one of the endangered species , ‘Crawf
             image_url=upload_image(picture, f'upload/{now}.jpg')
 
     with c2:
-        # try:
-        #     problem, category, content = response.choices[0].message.content.split('|')
-        #     st.write('Type: ', problem)
-        #     st.write('Category: ', category)
-        #     st.write('Content: ', content)
-        #     create_data_point(image_url=image_url,geolocation=data, summarization=content, raw=text, type=problem, category=category)
+        try:
+     
+        
+            problem, category, content = response.choices[0].message.content.split('|')
+            st.write(now)
+            st.write('Type: ', problem)
+            st.write('Category: ', category)
+            st.write('Content: ', content)
+            create_data_point(image_url=image_url, geolocation=data, summarization=content, raw=text, type=problem, category=category ,time=now)
 
-        #     st.write("✅Your report has been documented")
-        # except:
-        #     st.write("Your content didn't pass the check, Please try again")
+            st.write("✅Your report has been documented")
+        except:
+            st.write("An error has occured, Please try again")
 
-        problem, category, content = response.choices[0].message.content.split('|')
-        st.write(now)
-        st.write('Type: ', problem)
-        st.write('Category: ', category)
-        st.write('Content: ', content)
-        create_data_point(image_url=image_url, geolocation=data, summarization=content, raw=text, type=problem, category=category ,time=now)
 
-        st.write("✅Your report has been documented")
+st.write('If you have any feedback during test, please press the feedback button below and speak.')
+feedback=WhisperSTT(openai_api_key=openai_api_key,language='en', start_prompt='🔴 START FEEDBACK', stop_prompt='✋ END FEEDBACK')
+if feedback:
+    st.write("Feedback collected. Thank you so much")

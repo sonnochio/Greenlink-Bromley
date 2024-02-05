@@ -60,18 +60,15 @@ def create_data_point(image_url, geolocation, summarization, raw, type, category
     db.collection('data_points').add(data_point)
     print("Data point created with image and textual data.")
 
-
-def save_data_point(image_url, geolocation, summarization, raw, type, category):
+def create_feedback(feedback):
     db = firestore.client()
-    doc_ref = db.collection(u'data_points').document()  # Creates a new document in the `data_points` collection
-    doc_ref.set({
-        u'image_url': image_url,
-        u'geolocation': geolocation,  # This can be a map with latitude and longitude fields
-        u'summarization': summarization,
-        u'raw': raw,
-        u'type': type,
-        u'category': category
-    })
-    print(f"Data point with ID: {doc_ref.id} has been added.")
+    data_point = {
+        'feedback': feedback
+    }
+    # Add a new document in collection 'data_points'
+    db.collection('feedback').add(feedback)
+    print("Feedback collected")
+
+
 
 
