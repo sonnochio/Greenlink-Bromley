@@ -6,7 +6,9 @@ import streamlit as st
 from streamlit_js_eval import get_geolocation
 from storage import upload_image, create_data_point
 import datetime
+from storage import initialize_firebase
 
+initialize_firebase()
 
 st.write("Please sync location and allow the app to access your current location!")
 if st.checkbox("Sync location"):

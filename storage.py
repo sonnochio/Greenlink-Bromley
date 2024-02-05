@@ -36,7 +36,6 @@ def initialize_firebase():
         print("Firebase app already initialized.")
 
 # Call the function to ensure Firebase is initialized
-initialize_firebase()
 
 
 def upload_image(image_file, destination_path):
