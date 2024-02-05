@@ -28,7 +28,9 @@ def initialize_firebase():
     # Check if the app has already been initialized
     if not firebase_admin._apps:
         # Initialize the Firebase app with the service account file
-        firebase_admin.initialize_app(cred)
+        firebase_admin.initialize_app(cred, {
+            'storageBucket': 'gl-bromley.appspot.com'
+        })
     else:
         # Firebase app is already initialized
         print("Firebase app already initialized.")
@@ -36,8 +38,6 @@ def initialize_firebase():
 # Call the function to ensure Firebase is initialized
 initialize_firebase()
 
-db = firestore.client() # For Firestore Database
-bucket = storage.bucket() # For Firebase Storage
 
 def upload_image(image_file, destination_path):
     bucket = storage.bucket()
