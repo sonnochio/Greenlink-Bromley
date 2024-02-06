@@ -20,8 +20,10 @@ if st.checkbox("Sync location"):
         "lon": {
             "0": lon,
         },}
+        st.write('Location synced ✅')
     except:
         st.write('Loading...')
+custom_location=st.text_input('If you wish to report a previous case, you can enter the location post code here.')
 
 st.title('GREENLINK BROMLEY')
 ##################
@@ -120,9 +122,12 @@ Sighting | Endangered Species | Spotted one of the endangered species , ‘Crawf
             st.write('Type: ', problem)
             st.write('Category: ', category)
             st.write('Content: ', content)
-            create_data_point(image_url=image_url, geolocation=data, summarization=content, raw=text, type=problem, category=category ,time=now)
-
-            st.write("✅Your report has been documented. Refresh the page to start another report.")
+            if custom_location:
+                create_data_point(image_url=image_url, geolocation=custom_location, summarization=content, raw=text, type=problem, category=category ,time=now)
+                st.write("✅Your report has been documented with your custom location. Refresh the page to start another report.")
+            else:
+                create_data_point(image_url=image_url, geolocation=data, summarization=content, raw=text, type=problem, category=category ,time=now)
+                st.write("✅Your report has been documented. Refresh the page to start another report.")
         except:
             st.write("An error has occured, Please try again")
 
