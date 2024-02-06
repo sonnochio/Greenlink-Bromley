@@ -37,6 +37,7 @@ client = OpenAI(api_key=openai_api_key)
 
 state=st.session_state
 picture = st.camera_input("Take a picture")
+uploaded_pic = st.file_uploader("or Choose a picture from your album")
 now = datetime.datetime.now()
 
 
@@ -103,7 +104,10 @@ Sighting | Endangered Species | Spotted one of the endangered species , ‘Crawf
         st.write()
     c1, c2 = st.columns(2)
     with c1:
-        if picture:
+        if uploaded_pic:
+            st.image(uploaded_pic)
+            image_url=upload_image(uploaded_pic, f'upload/{now}.jpg')
+        elif picture:
             st.image(picture)
             image_url=upload_image(picture, f'upload/{now}.jpg')
 
@@ -118,7 +122,7 @@ Sighting | Endangered Species | Spotted one of the endangered species , ‘Crawf
             st.write('Content: ', content)
             create_data_point(image_url=image_url, geolocation=data, summarization=content, raw=text, type=problem, category=category ,time=now)
 
-            st.write("✅Your report has been documented")
+            st.write("✅Your report has been documented. Refresh the page to start another report.")
         except:
             st.write("An error has occured, Please try again")
 
@@ -127,4 +131,4 @@ st.write('If you have any feedback during test, please press the feedback button
 feedback=WhisperSTT(openai_api_key=openai_api_key,language='en', start_prompt='🔴 START FEEDBACK', stop_prompt='✋ END FEEDBACK')
 if feedback:
     create_feedback(feedback=feedback)
-    st.write("Feedback collected. Thank you so much")
+    st.write("Feedback collected. Thank you so much🙏! Refresh the page to start another feedback.")
